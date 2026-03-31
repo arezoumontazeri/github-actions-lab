@@ -14,7 +14,7 @@ jobs:
           hostname
       - name: step-2 - checkout
         uses: actions/checkout@v6.0.2
-      - name:
+      - name: step-3
         run: |
           pwd
           ls -ltr
