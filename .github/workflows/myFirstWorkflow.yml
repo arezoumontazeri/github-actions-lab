@@ -75,7 +75,7 @@ jobs:
     - name: Download Directory
       uses: actions/download-artifact@v5.0.0
       with:
-        name: single_file
+        name: directory-artifacts
     - name: checking current directory post download
       run: |
         pwd
