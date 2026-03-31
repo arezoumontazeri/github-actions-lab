@@ -43,7 +43,7 @@ jobs:
         with:
          name: multiple_path_exclusions
          path: | 
-          ./myartifact
+          ./myartifact.txt
           artifacts/
           !**/hostname.txt
           
