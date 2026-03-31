@@ -1,48 +1,23 @@
 name: my-first-workflow
 #to get trigger on every push is this repo in my branch 
 on:
-  schedule:
-    - cron: "*/5 * * * *"
+  push: 
 jobs:
   job1 :
     name: JOB1
     runs-on: ubuntu-latest
     steps:
-      - name: Running single command in Job1
-        run: echo "hi, this is my first GitHub Workflow"
-      - name: Checking  OS Release for GitHub Hosted runner
-        run: cat /etc/os-release
-      - name: Calling Sleeping
-        run: sleep 20
-      
-  job2:
-     name: JOB2
-     runs-on: ubuntu-latest
-     steps:
-       - name: Checking the Hostname for Runner
-         run: hostname
-       - name: Running multiple commands
-         run: 
-           echo "Hi from arezou"
-           echo "current time is  'date'"
-           sleep 20
-  job3:
-    name: JOB3
-    needs: job1
-    runs-on: windows-latest
-    steps:
-       - name: Job with Single Deployment
-         run: sleep 10
-       - name: Checking Runner Info
-         shell: pwsh
-         run: get-computerinfo
-  job4: 
-    name: JOB4
-    needs: [ job1, job2, job3]
-    runs-on: macos-latest
-    steps:
-      - name: Job for multiple dependencies
-        run: sleep 10
-      - name: Checking Runner Info
-        run: sw_vers
+      - name: step-1
+        run: |
+          pwd
+          ls -ltr
+          hostname
+      - name: step-2 - checkout
+        uses: actions/checkout@v6.0.2
+      - name:
+        run: |
+          pwd
+          ls -ltr
+          hostname
+
   
