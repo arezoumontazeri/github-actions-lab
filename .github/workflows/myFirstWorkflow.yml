@@ -2,6 +2,9 @@ name: my-first-workflow
 #to get trigger on every push is this repo in my branch 
 on:
   push: 
+    - dev
+    - 'feature-*'
+    - main
 jobs:
   job1 :
     name: JOB1
@@ -25,27 +28,6 @@ jobs:
         with:
           name: single_file
           path: ./myartifact.txt
-  
-      - name: Upload from directory
-        uses: actions/upload-artifact@v4
-        with:
-          name: directory-artifacts
-          path: artifacts/
-      - name: Upload from multiple paths
-        uses: actions/upload-artifact@v4
-        with:
-          name: multiple_path
-          path: | 
-           ./myartifact.txt
-           artifacts/
-      - name: Upload from multiple paths with exclusion
-        uses: actions/upload-artifact@v4
-        with:
-         name: multiple_path_exclusions
-         path: | 
-          ./myartifact.txt
-          artifacts/
-          !**/hostname.txt
   job2 :
    name: JOB2
    needs: job1
@@ -63,51 +45,4 @@ jobs:
       run: |
         pwd
         ls -ltr
-  job3 :
-   name: JOB3
-   needs: job1
-   runs-on: ubuntu-latest
-   steps:
-    - name: checking current directory
-      run: |
-        pwd
-        ls -ltr
-    - name: Download Directory
-      uses: actions/download-artifact@v5.0.0
-      with:
-        name: directory-artifacts
-    - name: checking current directory post download
-      run: |
-        pwd
-        ls -ltr
-  job4 :
-   name: JOB4
-   needs: job1
-   runs-on: ubuntu-latest
-   steps:
-    - name: creating custom folder for download
-      run: | 
-        mkdir -p single_file
-        mkdir -p download_directory
-       
-    - name: checking current directory
-      run: |
-        pwd
-        ls -ltr
-    - name: Download single file srtifact
-      uses: actions/download-artifact@v5.0.0
-      with:
-        name: single_file
-        path: single_file
-    - name: Download Directory
-      uses: actions/download-artifact@v5.0.0
-      with:
-        name: directory-artifacts
-        path: download_directory
-    - name: checking current directory post download
-      run: |
-        pwd
-        echo "CHECKING SINGLE FILE DIRECTORIY"
-        ls -ltr single_file
-        echo "CHECKING DIRECTORY ARTIFACTS"
-        ls -ltr download_directory
+ 
